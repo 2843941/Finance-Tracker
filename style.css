@@ -10,7 +10,6 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
-/* Dark Mode */
 body.dark-mode {
     background: #1a1a2e;
     color: #eee;
@@ -22,7 +21,6 @@ body.dark-mode {
     padding: 20px;
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -30,23 +28,50 @@ body.dark-mode {
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 2px solid #ddd;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.user-info span {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.logout-btn {
+    padding: 8px 15px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background: #da190b;
 }
 
 .dark-mode-btn {
-    padding: 10px 20px;
+    padding: 8px 15px;
     background: #333;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .dark-mode-btn:hover {
     background: #555;
 }
 
-/* Dashboard Cards */
 .dashboard {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -69,7 +94,6 @@ body.dark-mode {
 
 .dark-mode .card {
     background: #2a2a3e;
-    color: #eee;
 }
 
 .card h3 {
@@ -98,7 +122,6 @@ body.dark-mode {
     color: #f44336;
 }
 
-/* Form */
 .form-container {
     background: white;
     padding: 20px;
@@ -119,38 +142,52 @@ body.dark-mode {
     margin-bottom: 15px;
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
 }
 
-.dark-mode input, 
-.dark-mode select {
+.dark-mode .form-group label {
+    color: #aaa;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.dark-mode .form-group input,
+.dark-mode .form-group select {
     background: #3a3a4e;
     color: #eee;
     border-color: #555;
 }
 
-.btn-add {
+.btn-add, .btn-primary {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    margin-top: 10px;
     transition: background 0.3s;
 }
 
-.btn-add:hover {
+.btn-add:hover, .btn-primary:hover {
     background: #45a049;
 }
 
-/* Filters */
 .filters {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -172,7 +209,6 @@ input, select {
     font-weight: bold;
 }
 
-/* Charts */
 .charts-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -192,15 +228,14 @@ input, select {
 }
 
 .chart-card h3 {
-    margin-bottom: 15px;
     text-align: center;
+    margin-bottom: 15px;
 }
 
 canvas {
     max-height: 300px;
 }
 
-/* Transaction List */
 .transactions-container {
     background: white;
     padding: 20px;
@@ -248,10 +283,11 @@ canvas {
 
 .transaction-category {
     font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 5px;
+    padding: 5px 12px;
+    border-radius: 20px;
     display: inline-block;
     margin-right: 10px;
+    font-size: 14px;
 }
 
 .transaction-date {
@@ -281,10 +317,9 @@ canvas {
     background: #f44336;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
 .delete-btn:hover {
@@ -297,7 +332,109 @@ canvas {
     color: #999;
 }
 
-/* Category Colors */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.dark-mode .auth-card {
+    background: #2a2a3e;
+}
+
+.auth-card h1 {
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.auth-card .logo p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.dark-mode .auth-card .logo p {
+    color: #aaa;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: #f0f0f0;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background: #4CAF50;
+    color: white;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.dark-mode .auth-form h2 {
+    color: #eee;
+}
+
+.message {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    display: none;
+}
+
+.message.success {
+    display: block;
+    background: #4CAF50;
+    color: white;
+}
+
+.message.error {
+    display: block;
+    background: #f44336;
+    color: white;
+}
+
+.message.info {
+    display: block;
+    background: #2196F3;
+    color: white;
+}
+
 .category-Food { background: #ff6b6b; color: white; }
 .category-Rent { background: #4ecdc4; color: white; }
 .category-Transport { background: #45b7d1; color: white; }
@@ -308,21 +445,23 @@ canvas {
 .category-Other { background: #95afc0; color: white; }
 
 @media (max-width: 768px) {
-    .dashboard {
-        grid-template-columns: 1fr;
-    }
-    
     .charts-container {
         grid-template-columns: 1fr;
     }
-    
     .transaction-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
-    
     .delete-btn {
         align-self: flex-end;
     }
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .user-info {
+        justify-content: center;
+    }
 }
+

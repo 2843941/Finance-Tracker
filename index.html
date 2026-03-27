@@ -3,108 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Finance Tracker - Rands</title>
+    <meta name="referrer" content="origin">
+    <title>Finance Tracker - Login</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Header with Dark Mode Toggle -->
-        <div class="header">
-            <h1>💰 Finance Tracker (Rands)</h1>
-            <button id="darkModeToggle" class="dark-mode-btn">🌙 Dark Mode</button>
-        </div>
-
-        <!-- Dashboard Summary -->
-        <div class="dashboard">
-            <div class="card balance">
-                <h3>Total Balance</h3>
-                <div class="amount" id="totalBalance">R 0.00</div>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="logo">
+                <h1>💰 Finance Tracker</h1>
+                <p>Track your money, achieve your goals</p>
             </div>
-            <div class="card income">
-                <h3>Total Income</h3>
-                <div class="amount" id="totalIncome">R 0.00</div>
+            
+            <div class="auth-tabs">
+                <button id="loginTab" class="tab-btn active">Login</button>
+                <button id="signupTab" class="tab-btn">Sign Up</button>
             </div>
-            <div class="card expense">
-                <h3>Total Expenses</h3>
-                <div class="amount" id="totalExpenses">R 0.00</div>
-            </div>
-        </div>
-
-        <!-- Add Transaction Form -->
-        <div class="form-container">
-            <h2>➕ Add Transaction</h2>
-            <form id="transactionForm">
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <h2>Welcome Back! 👋</h2>
                 <div class="form-group">
-                    <input type="number" id="amount" placeholder="Amount in Rands" required step="0.01">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <select id="category" required>
-                        <option value="">Select Category</option>
-                        <option value="Food">🍔 Food</option>
-                        <option value="Rent">🏠 Rent</option>
-                        <option value="Transport">🚗 Transport</option>
-                        <option value="Salary">💼 Salary</option>
-                        <option value="Shopping">🛍️ Shopping</option>
-                        <option value="Entertainment">🎬 Entertainment</option>
-                        <option value="Bills">💡 Bills</option>
-                        <option value="Other">📌 Other</option>
-                    </select>
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button id="loginBtn" class="btn-primary">Login</button>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form">
+                <h2>Create Account 🚀</h2>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
                 </div>
                 <div class="form-group">
-                    <select id="type" required>
-                        <option value="expense">💸 Expense</option>
-                        <option value="income">💰 Income</option>
-                    </select>
+                    <label>Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <input type="date" id="date" required>
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password (min 6 characters)" required>
                 </div>
-                <button type="submit" class="btn-add">Add Transaction</button>
-            </form>
-        </div>
-
-        <!-- Filters and Search -->
-        <div class="filters">
-            <div class="filter-group">
-                <label>Filter by Category:</label>
-                <select id="categoryFilter">
-                    <option value="all">All Categories</option>
-                    <option value="Food">🍔 Food</option>
-                    <option value="Rent">🏠 Rent</option>
-                    <option value="Transport">🚗 Transport</option>
-                    <option value="Salary">💼 Salary</option>
-                    <option value="Shopping">🛍️ Shopping</option>
-                    <option value="Entertainment">🎬 Entertainment</option>
-                    <option value="Bills">💡 Bills</option>
-                    <option value="Other">📌 Other</option>
-                </select>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button id="signupBtn" class="btn-primary">Sign Up</button>
             </div>
-            <div class="filter-group">
-                <label>Search:</label>
-                <input type="text" id="searchInput" placeholder="Search transactions...">
-            </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="charts-container">
-            <div class="chart-card">
-                <h3>📊 Expenses by Category</h3>
-                <canvas id="expenseChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <h3>📈 Income vs Expenses</h3>
-                <canvas id="incomeExpenseChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Transaction List -->
-        <div class="transactions-container">
-            <h2>📋 Transaction History</h2>
-            <div id="transactionList" class="transaction-list"></div>
+            
+            <div id="authMessage" class="message"></div>
         </div>
     </div>
-
-    <script src="app.js"></script>
+    
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
