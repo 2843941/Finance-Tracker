@@ -7,7 +7,65 @@ const loginBtn = document.getElementById('loginBtn');
 const signupBtn = document.getElementById('signupBtn');
 const authMessage = document.getElementById('authMessage');
 
-// Tab switching
+// ============ ENTER KEY SUPPORT ============
+
+// Login form - press Enter to login
+const loginEmail = document.getElementById('loginEmail');
+const loginPassword = document.getElementById('loginPassword');
+
+if (loginEmail && loginPassword) {
+    loginEmail.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            loginBtn.click();
+        }
+    });
+    
+    loginPassword.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            loginBtn.click();
+        }
+    });
+}
+
+// Signup form - press Enter to signup
+const signupName = document.getElementById('signupName');
+const signupEmail = document.getElementById('signupEmail');
+const signupPassword = document.getElementById('signupPassword');
+const signupConfirmPassword = document.getElementById('signupConfirmPassword');
+
+if (signupName && signupEmail && signupPassword && signupConfirmPassword) {
+    signupName.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            signupBtn.click();
+        }
+    });
+    
+    signupEmail.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            signupBtn.click();
+        }
+    });
+    
+    signupPassword.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            signupBtn.click();
+        }
+    });
+    
+    signupConfirmPassword.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            signupBtn.click();
+        }
+    });
+}
+
+// ============ TAB SWITCHING ============
 if (loginTab && signupTab) {
     loginTab.addEventListener('click', () => {
         loginTab.classList.add('active');
@@ -39,11 +97,62 @@ function showMessage(msg, type) {
         authMessage.className = `message ${type}`;
         setTimeout(() => {
             if (authMessage.innerHTML === msg) clearMessage();
-        }, 4000);
+        }, 5000);
     }
 }
 
-// LOGIN
+// ============ SIMPLE PASSWORD RESET ============
+async function sendPasswordReset() {
+    const email = prompt("Enter your email address to reset your password:");
+    
+    if (!email) {
+        return;
+    }
+    
+    if (!email.includes('@') || !email.includes('.')) {
+        showMessage('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    showMessage('Sending reset link...', 'info');
+    
+    try {
+        await auth.sendPasswordResetEmail(email);
+        showMessage(`✅ Password reset link sent to ${email}! Check your inbox and spam folder.`, 'success');
+    } catch (error) {
+        let errorMessage = '';
+        switch (error.code) {
+            case 'auth/user-not-found':
+                errorMessage = 'No account found with this email.';
+                break;
+            case 'auth/invalid-email':
+                errorMessage = 'Invalid email format.';
+                break;
+            default:
+                errorMessage = error.message;
+        }
+        showMessage(`❌ ${errorMessage}`, 'error');
+    }
+}
+
+// ============ ADD "FORGOT PASSWORD?" LINK ============
+// Add link after login button
+const loginBtnElement = document.getElementById('loginBtn');
+if (loginBtnElement && !document.getElementById('forgotPasswordLink')) {
+    const forgotPasswordHtml = `
+        <div class="forgot-password" style="text-align: center; margin-top: 15px;">
+            <a href="#" id="forgotPasswordLink" style="color: #4CAF50; text-decoration: none;">Forgot Password?</a>
+        </div>
+    `;
+    loginBtnElement.insertAdjacentHTML('afterend', forgotPasswordHtml);
+    
+    document.getElementById('forgotPasswordLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        sendPasswordReset();
+    });
+}
+
+// ============ LOGIN ============
 if (loginBtn) {
     loginBtn.addEventListener('click', async () => {
         const email = document.getElementById('loginEmail').value.trim();
@@ -86,7 +195,7 @@ if (loginBtn) {
     });
 }
 
-// SIGNUP
+// ============ SIGNUP ============
 if (signupBtn) {
     signupBtn.addEventListener('click', async () => {
         const name = document.getElementById('signupName').value.trim();

@@ -15,6 +15,18 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 const logoutBtn = document.getElementById('logoutBtn');
 const userNameSpan = document.getElementById('userName');
 
+// ============ ENTER KEY SUPPORT FOR ADD TRANSACTION ============
+const amountInput = document.getElementById('amount');
+if (amountInput) {
+    amountInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const addBtn = document.querySelector('.btn-add');
+            if (addBtn) addBtn.click();
+        }
+    });
+}
+
 // Check authentication
 auth.onAuthStateChanged(async (user) => {
     console.log("Auth state changed. User:", user ? user.email : "No user");
@@ -50,6 +62,7 @@ async function loadTransactions() {
     try {
         const snapshot = await db.collection('transactions')
             .where('userId', '==', currentUser.uid)
+            .orderBy('date', 'desc')
             .get();
         
         transactions = [];
